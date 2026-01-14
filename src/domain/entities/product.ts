@@ -2,7 +2,7 @@ export default class Product {
 
   _id: string;
   _name: string;
-  _price: string;
+  _price: number;
 
   constructor(id: string, name: string, price: number) {
     this._id = id;

@@ -36,4 +36,8 @@ export default class Address {
     return this._city;
   }
 
+  toString(): string {
+    return `Rua ${this._street} número ${this._number} - ${this._city}`;
+  }
+
 }

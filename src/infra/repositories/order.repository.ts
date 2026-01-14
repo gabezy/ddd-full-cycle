@@ -37,7 +37,6 @@ export default class OrderRepository implements OrderRepositoryInterface {
 
     items.forEach(async (item) => {
       const itemModel = await OrderItemModel.findOne({ where: { id: item.id }});
-      console.log({itemModel})
       if (itemModel != undefined || itemModel != null) {
         await OrderItemModel.update({...item}, { where: { id: item.id }});
       } else {

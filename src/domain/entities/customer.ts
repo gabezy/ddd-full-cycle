@@ -1,12 +1,16 @@
-import Address from "../dtos/address.ts";
+import EventInterface from "../event/@shared/event.interface";
+import CustomerAddressChanged from "../event/customer/customer-address-changed.event";
+import CustomerCreatedEvent from "../event/customer/customer-created.event";
+import Address from "../vos/address";
 
 export default class Customer {
 
   private _id: string;
   private _name: string;
-  private _address: Address;
+  private _address?: Address;
   private _activate: boolean = true;
   private _rewardPoints: number = 0;
+  private _domainEvents: EventInterface[] = [];
 
   constructor(id: string, name: string) {
     if (id == null || id.length == 0) {
@@ -19,8 +23,21 @@ export default class Customer {
 
     this._id = id;
     this._name = name;
-    this._address = "";
     this._activate = true;
+
+    this.addDomainEvent(new CustomerCreatedEvent(this));
+  }
+
+  get domainEvents(): EventInterface[] {
+    return this._domainEvents;
+  }
+
+  protected addDomainEvent(event: EventInterface): void {
+    this._domainEvents.push(event);
+  }
+
+  public clearEvents(): void {
+    this._domainEvents = [];
   }
 
   public get id() : string {
@@ -28,7 +45,7 @@ export default class Customer {
   }
 
   public get name() : string {
-    return this._id
+    return this._name
   }
   
   public set address(v : Address) {
@@ -41,13 +58,13 @@ export default class Customer {
 
   changeAddress(address: Address): void {
     this._address = address;
+    this.addDomainEvent(new CustomerAddressChanged(this));
   }
 
   
-  public get address() : Address {
+  public get address() : Address | undefined {
     return this._address;
   }
-  
 
   public activate() {
     this._activate = true;
@@ -68,10 +85,8 @@ export default class Customer {
     this._rewardPoints += points;
   }
 
-  
   public get rewardPoints() : number {
     return this._rewardPoints;
   }
   
-
 }
