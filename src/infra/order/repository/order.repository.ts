@@ -1,8 +1,8 @@
-import Order from "../../domain/checkout/entities/order";
-import OrderItem from "../../domain/checkout/entities/order-item";
-import OrderRepositoryInterface from "../../domain/checkout/repositories/order-repository.interface";
-import OrderItemModel from "../db/sequelize/model/order-item.model";
-import OrderModel from "../db/sequelize/model/order.model";
+import Order from "../../../domain/checkout/entities/order";
+import OrderItem from "../../../domain/checkout/entities/order-item";
+import OrderRepositoryInterface from "../../../domain/checkout/repositories/order-repository.interface";
+import OrderItemModel from "./sequelize/model/order-item.model";
+import OrderModel from "./sequelize/model/order.model";
 
 export default class OrderRepository implements OrderRepositoryInterface {
   async create(entity: Order): Promise<void> {
@@ -61,6 +61,11 @@ export default class OrderRepository implements OrderRepositoryInterface {
       include: ["items"],
       where: { id },
     });
+    
+    if (!order) {
+      throw new Error();
+    }
+    
     return this.mapToEntity(order);
   }
 
@@ -69,7 +74,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
     return orders.map(order => this.mapToEntity(order));
   }
 
-  private mapToEntity(model: any): Order {
+  private mapToEntity(model: OrderModel): Order {
     const orderItems = model.items.map(item => {
       return new OrderItem(
         item.id,

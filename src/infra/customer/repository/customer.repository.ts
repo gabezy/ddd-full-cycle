@@ -1,7 +1,7 @@
-import Customer from '../../domain/customer/entities/customer';
-import CustomerRepositoryInterface from '../../domain/customer/repositories/customer-repository.interface';
-import Address from '../../domain/customer/vos/address';
-import CustomerModel from '../db/sequelize/model/customer.model';
+import Customer from '../../../domain/customer/entities/customer';
+import CustomerRepositoryInterface from '../../../domain/customer/repositories/customer-repository.interface';
+import Address from '../../../domain/customer/vos/address';
+import CustomerModel from './sequelize/model/customer.model';
 
 export default class CustomerRepository implements CustomerRepositoryInterface {
 
@@ -9,10 +9,10 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
     await CustomerModel.create({
       id: entity.id,
       name: entity.name,
-      street: entity.address.street,
-      number: entity.address.number,
-      zipcode: entity.address.zip,
-      city: entity.address.city,
+      street: entity.address?.street,
+      number: entity.address?.number,
+      zipcode: entity.address?.zip,
+      city: entity.address?.city,
       active: entity.isActive(),
       rewardPoints: entity.rewardPoints,
     });
@@ -22,10 +22,10 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
     await CustomerModel.update(
       {
         name: entity.name,
-        street: entity.Address.street,
-        number: entity.Address.number,
-        zipcode: entity.Address.zip,
-        city: entity.Address.city,
+        street: entity.address?.street,
+        number: entity.address?.number,
+        zipcode: entity.address?.zip,
+        city: entity.address?.city,
         active: entity.isActive(),
         rewardPoints: entity.rewardPoints,
       },
@@ -39,6 +39,10 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
 
   async findById(id: string): Promise<Customer> {
     const customerModel = await CustomerModel.findOne({ where: { id } });
+    
+    if (!customerModel) {
+      throw new Error();
+    }
     
     const customer = new Customer(id, customerModel.name);
     const address = new Address(
