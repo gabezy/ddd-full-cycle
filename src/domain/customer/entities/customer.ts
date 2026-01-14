@@ -1,6 +1,6 @@
-import EventInterface from "../event/@shared/event.interface";
-import CustomerAddressChanged from "../event/customer/customer-address-changed.event";
-import CustomerCreatedEvent from "../event/customer/customer-created.event";
+import EventInterface from "../../@shared/event/event.interface";
+import CustomerAddressChanged from "../events/customer-address-changed.event";
+import CustomerCreatedEvent from "../events/customer-created.event";
 import Address from "../vos/address";
 
 export default class Customer {

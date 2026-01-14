@@ -1,5 +1,5 @@
-import Product from"../../entities/product";
-import EventInterface from "../@shared/event.interface";
+import EventInterface from "../../@shared/event/event.interface";
+import Product from "../entities/product";
 
 export default class ProductCreatedEvent implements EventInterface {
 

@@ -1,5 +1,5 @@
-import Customer from "../../entities/customer";
-import type EventInterface from "../@shared/event.interface";
+import EventInterface from "../../@shared/event/event.interface";
+import Customer from "../entities/customer";
 
 export default class CustomerCreatedEvent implements EventInterface<Customer> {
 

@@ -1,12 +1,12 @@
+import Customer from '../../customer/entities/customer';
+import EnviaConsoleLog1Handler from '../../customer/events/handler/envia-console.log-1.handler';
+import EnviaConsoleLog2Handler from '../../customer/events/handler/envia-console.log-2.handler copy';
+import EnviaConsoleLogHandler from '../../customer/events/handler/envia-console.log.handler copy';
+import Address from '../../customer/vos/address';
+import Product from '../../product/entities/product';
+import SendEmailWhenProductIsCreatedHandler from '../../product/events/handler/send-email-when-product-is-created.handler';
+import ProductCreatedEvent from '../../product/events/product-created.event';
 import EventDispacher from './event-dispacher';
-import SendEmailWhenProductIsCreatedHandler from '../product/handler/send-email-when-product-is-created.handler';
-import ProductCreatedEvent from '../product/product-created.event';
-import Product from '../../entities/product';
-import Customer from '../../entities/customer';
-import EnviaConsoleLog1Handler from '../customer/handler/envia-console.log-1.handler';
-import EnviaConsoleLog2Handler from '../customer/handler/envia-console.log-2.handler copy';
-import EnviaConsoleLogHandler from '../customer/handler/envia-console.log.handler copy';
-import Address from '../../vos/address';
 
 describe("Domain event tests", () => {
 

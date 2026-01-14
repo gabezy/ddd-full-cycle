@@ -1,6 +1,6 @@
-import Customer from '../../domain/entities/customer';
-import Address from '../../domain/vos/address';
-import CustomerRepositoryInterface from '../../domain/repositories/customer-repository.interface';
+import Customer from '../../domain/customer/entities/customer';
+import CustomerRepositoryInterface from '../../domain/customer/repositories/customer-repository.interface';
+import Address from '../../domain/customer/vos/address';
 import CustomerModel from '../db/sequelize/model/customer.model';
 
 export default class CustomerRepository implements CustomerRepositoryInterface {
@@ -54,7 +54,7 @@ export default class CustomerRepository implements CustomerRepositoryInterface {
     return customer;
   }
 
-  async findAll(): Promise<Product[]> {
+  async findAll(): Promise<Customer[]> {
     const customerModels = await CustomerModel.findAll();
 
     const customers = customerModels.map((customerModels) => {
